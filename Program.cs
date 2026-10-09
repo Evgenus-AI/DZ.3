@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 
 namespace FirstApp
 {
@@ -11,17 +10,27 @@ namespace FirstApp
             string[] names = { "января", "февраля", "марта", "апреля", "мая", "июня",
                 "июля", "августа", "сентября", "октября", "ноября", "декабря" };
 
-            Console.Write("Введите номер дня (1-365): ");
-            int day = Convert.ToInt32(Console.ReadLine());
-
-            int month = 0;
-            while (day > days[month])
+            try
             {
-                day = day - days[month];
-                month++;            
+                Console.Write("Введите номер дня (1-365): ");
+                int day = Convert.ToInt32(Console.ReadLine());
+                if (day < 1 || day > 365)
+                {
+                    throw new Exception("Число должно быть от 1 до 365, подумай!!! И поменяй число");
+                }
+                int month = 0;
+                while (day > days[month])
+                {
+                    day -= days[month];
+                    month++;
+                }
+                Console.WriteLine(day + " " + names[month]);
             }
-
-            Console.WriteLine(day + " " + names[month]);
+            
+            catch (Exception ex)
+            {
+                Console.WriteLine("Ошибка: " + ex.Message);
+            }
         }
     }
 }
